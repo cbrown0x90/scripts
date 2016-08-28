@@ -1,0 +1,8 @@
+#!/bin/bash
+STATUS=$(xset q | grep timeout | awk '{print $2}')
+
+if [ $STATUS == 300 ]; then
+	xset -dpms s off
+else
+	xset s 300
+fi

@@ -1,0 +1,21 @@
+#!/bin/bash
+export DISPLAY=:0.0
+
+while true
+do
+    if [ $(xssstate -s) != "disabled" ];
+    then
+        tosleep=$(($(xssstate -t) / 1000))
+        if [ $tosleep -le 0 ];
+        then
+            echo "Opening slock"
+            /usr/bin/slock
+        else
+            echo "Waiting..."
+            sleep $tosleep
+        fi
+    else
+        echo "Sleeping for 10"
+        sleep 10
+    fi
+done
