@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if pgrep "lemonbar" > /dev/null
-then
-	killall lemonbar
-else
-	/home/chris/.scripts/helper\ scripts/clock.sh &
-fi
