@@ -36,3 +36,5 @@ done
 set -x
 ${CMD}
 set +x
+
+DISPLAY=:0.0 feh -z --bg-fill /home/chris/Pictures/Backgrounds/
