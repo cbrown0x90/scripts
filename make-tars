@@ -1,0 +1,7 @@
+#!/bin/bash
+
+tar cvf /home/chris/Documents/etc.tar /etc
+zopfli -v -i1000 /home/chris/Documents/etc.tar
+
+tar --exclude=/home/chris/.cache -cvf /home/chris/Documents/chris.tar /home/chris/{Documents,Pictures,Downloads,.*}
+zopfli -v -i1000 /home/chris/Documents/chris.tar
