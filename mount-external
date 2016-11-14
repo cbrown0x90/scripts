@@ -1,0 +1,3 @@
+#!/bin/bash
+cryptsetup luksOpen /dev/disk/by-uuid/f2a6ec57-8d7f-4ce6-a90f-ac5027ba19a5 external
+mount /dev/mapper/external /mnt/external
