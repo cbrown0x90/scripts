@@ -20,5 +20,5 @@ if [[ -z $CMD ]]
 then
     echo "All packages up to date"
 else
-    emerge -av $CMD
+    emerge -av1 $CMD
 fi
