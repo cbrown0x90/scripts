@@ -1,0 +1,7 @@
+#!/bin/bash
+
+detect-displays
+xset s 300
+locker &
+compton -b
+mopidy -q &
