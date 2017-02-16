@@ -1,6 +1,7 @@
 #!/bin/bash
 
 detect-displays
+xhost local:runescape@ulm
 xset s 300
 locker &
 compton -b
