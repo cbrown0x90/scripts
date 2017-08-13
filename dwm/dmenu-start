@@ -1,2 +1,2 @@
 #!/bin/bash
-SHELL=/bin/bash j4-dmenu-desktop --dmenu='dmenu -i -m 0 -b -fn "gohufont:pixelsize=11" -nb "#222222" -nf "#bbbbbb" -sb "#bbbbbb" -sf "#222222"'
+SHELL=/bin/bash j4-dmenu-desktop --dmenu='dmenu -i -m 0 -b -fn "Gohu GohuFont:pixelsize=11" -nb "#222222" -nf "#bbbbbb" -sb "#bbbbbb" -sf "#222222"'
