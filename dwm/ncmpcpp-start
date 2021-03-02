@@ -1,4 +1,0 @@
-#!/bin/bash
-
-xdotool key --clearmodifiers Super_L+5
-st fish -c ncmpcpp
