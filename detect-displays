@@ -5,9 +5,6 @@ CMD="${XRANDR}"
 declare -A VOUTS
 eval VOUTS=$(${XRANDR}|awk 'BEGIN {printf("(")} /^\S.*connected/{printf("[%s]=%s ", $1, $2)} END{printf(")")}')
 declare -A POS
-#XPOS=0
-#YPOS=0
-#POS="${XPOS}x${YPOS}"
 
 POS=([X]=0 [Y]=0)
 
@@ -37,4 +34,4 @@ set -x
 ${CMD}
 set +x
 
-DISPLAY=:0.0 feh -z --bg-fill /home/chris/Pictures/Backgrounds/
+DISPLAY=:0.0 feh -z --bg-fill $HOME/Pictures/Backgrounds/
