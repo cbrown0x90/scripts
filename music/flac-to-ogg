@@ -1,0 +1,4 @@
+#!/bin/bash
+FILENAME=${1%.*}
+
+ffmpeg -i "$1" -acodec libvorbis -q:a 10.0 "$FILENAME.ogg"
