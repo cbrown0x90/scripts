@@ -1,4 +1,0 @@
-#!/bin/bash
-URL=$(hostname)
-
-curl -d '{"jsonrpc": "2.0", "id": 1, "method":"core.playback.previous"}' http://$URL:6680/mopidy/rpc
