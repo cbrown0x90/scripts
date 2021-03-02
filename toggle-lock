@@ -2,7 +2,7 @@
 STATUS=$(xset q | grep timeout | awk '{print $2}')
 
 if [ $STATUS == 300 ]; then
-	xset -dpms s off
+    xset s off -dpms
 else
-	xset s 300
+    xset s 300 +dpms
 fi
