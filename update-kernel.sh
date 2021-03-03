@@ -9,10 +9,6 @@ if [ ${#NEWVER} -gt 0 ]; then
     # build an initramfs
     genkernel --xfsprogs --luks --lvm --keymap --install initramfs
 
-    # TODO do I need this
-    # update refind config
-    sed -i "s/initramfs-\S*\.img/initramfs-$NEWVER.img/g" "/boot/refind_linux.conf"
-
     # rebuild externel kernel modules
     emerge -av --exclude=sys-kernel/gentoo-kernel @module-rebuild
 else
