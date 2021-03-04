@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# get the live packages
+live=$(emerge -qp @live-rebuild | awk '{print $4}')
+# list of packages to update
+update=""
+for pkg in $live; do
+    # get the ebuild from the pkg db
+    ebuild="/var/db/pkg/${pkg}/$(echo $pkg | awk -F "/" '{print $2}').ebuild"
+
+    # get the git url
+    PN=$(echo $pkg | awk -F '[-/]' '{print $3}')
+    url=$(sed -n 's/EGIT_REPO_URI="\(.*\)"/\1/p' $ebuild | sed "s/\${PN}/${PN}/g")
+
+    # Get the repo folder on disk; Taken from git-r3.eclass
+    repo_name=${url#*://*/}
+
+    # strip the trailing slash
+    repo_name=${repo_name%/}
+
+    # strip common prefixes to make paths more likely to match
+    # e.g. git://X/Y.git vs https://X/git/Y.git
+    # (but just one of the prefixes)
+    case "${repo_name}" in
+        # gnome.org... who else?
+        browse/*) repo_name=${repo_name#browse/};;
+        # cgit can proxy requests to git
+        cgit/*) repo_name=${repo_name#cgit/};;
+        # pretty common
+        git/*) repo_name=${repo_name#git/};;
+        # gentoo.org
+        gitroot/*) repo_name=${repo_name#gitroot/};;
+        # sourceforge
+        p/*) repo_name=${repo_name#p/};;
+        # kernel.org
+        pub/scm/*) repo_name=${repo_name#pub/scm/};;
+    esac
+    # ensure a .git suffix, same reason
+    repo_name=${repo_name%.git}.git
+    # now replace all the slashes
+    repo_name=${repo_name//\//_}
+
+    # this is the location of the repo on disk; end git-r3.eclass code
+    repo_location="/var/cache/distfiles/git3-src/${repo_name}"
+
+    # if doesn't exist or out of date then add to list
+    if [ ! -d "$repo_location" ]; then
+        update="$update $PN"
+        continue
+    fi
+
+    # if the head is different then add to the list
+    local=$(git --git-dir=${repo_location} rev-parse HEAD)
+    remote=$(git ls-remote ${url} | head -1 | awk '{print $1}')
+    if [ $local != $remote ]; then
+        update="$update $PN"
+    fi
+done
+
+if [[ -z $update ]]; then
+    echo "All packages up to date"
+else
+    emerge -av1 $update
+fi
